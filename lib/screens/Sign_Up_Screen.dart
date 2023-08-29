@@ -111,7 +111,7 @@ class _sign_up_screenState extends State<sign_up_screen> {
                     bottom: -10,
                     child: IconButton(
                         onPressed: SelectImage,
-                        icon: const Icon(Icons.add_a_photo)),
+                        icon: const Icon(Icons.add_a_photo,color: Colors.black,)),
                   )
                 ],
               ),
