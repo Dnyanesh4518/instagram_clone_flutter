@@ -142,13 +142,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ?
                                           Row(
                                                 children: [
-                                                  FollowButton(
-                                                      function: () {},
-                                                      backgroundColor: Colors.blue,
-                                                      borderColor: Colors.blue,
-                                                      text: 'Edit Profile',
-                                                      textColor: Colors.white,
-                                                    ),
+                                                  // FollowButton(
+                                                  //     function: () {},
+                                                  //     backgroundColor: Colors.blue,
+                                                  //     borderColor: Colors.blue,
+                                                  //     text: 'Edit Profile',
+                                                  //     textColor: Colors.white,
+                                                  //   ),
                                                   Container(
                                                       width: 130,
                                                       height: 35,
@@ -163,11 +163,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                             MaterialPageRoute(
                                                                 builder: (context) => sign_up_screen()));
                                                       },
-                                                      child: Text("Logout"),
+                                                      child: Text("Logout",style: TextStyle(fontSize: 18),),
                                                     ),
                                                   ),
                                                 ],
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               )
                                               : isFollowing
                                                   ? FollowButton(
@@ -188,7 +188,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       backgroundColor:
                                                           Colors.white,
                                                       borderColor: Colors.black,
-                                                      text: 'Unfollow',
+                                                      text: 'Following',
                                                       textColor: Colors.black,
                                                     )
                                                   : FollowButton(
@@ -295,6 +295,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Column buildStateColumn(int num, String label) {
     return Column(
+
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.min,
       children: [

@@ -55,72 +55,74 @@ class _SearchScreenState extends State<SearchScreen> {
                   }),
             ),
           ),
-          body: isShowUsers
-              ? FutureBuilder(
-                  future: FirebaseFirestore.instance
-                      .collection('users')
-                      .where('username',
-                          isGreaterThanOrEqualTo: serachController.text)
-                      .get(),
-                  builder: (context,
-                      AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                          snapshot) {
-                    if(snapshot.hasError)
-                      {
-                       showSnackBar("Something went wrong", context);
+          body: SafeArea(
+            child: isShowUsers
+                ? FutureBuilder(
+                    future: FirebaseFirestore.instance
+                        .collection('users')
+                        .where('username',
+                            isGreaterThanOrEqualTo: serachController.text)
+                        .get(),
+                    builder: (context,
+                        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                            snapshot) {
+                      if(snapshot.hasError)
+                        {
+                         showSnackBar("Something went wrong", context);
+                        }
+                      if (!snapshot.hasData) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
                       }
-                    if (!snapshot.hasData) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    return ListView.builder(
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () =>
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => ProfileScreen(
-                                          uid: snapshot.data!.docs[index]['uid'],
-                                        ))),
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                  snapshot.data!.docs[index]['photoURL'],
+                      return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ProfileScreen(
+                                            uid: snapshot.data!.docs[index]['uid'],
+                                          ))),
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                    snapshot.data!.docs[index]['photoURL'],
+                                  ),
+                                  radius: 16,
                                 ),
-                                radius: 16,
+                                title: Text(
+                                  snapshot.data!.docs[index]['username'],
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
-                              title: Text(
-                                snapshot.data!.docs[index]['username'],
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          );
-                        });
-                  },
-                )
-              : FutureBuilder(
-                  future: FirebaseFirestore.instance
-                      .collection('posts')
-                      .orderBy('datePublished')
-                      .get(),
-                  builder: (context,
-                      // AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                          snapshot) {
-                    if (!snapshot.hasData) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    return MasonryGridView.count(
-                      crossAxisCount: 3,
-                      itemCount: (snapshot.data! as dynamic).docs.length,
-                      itemBuilder: (context, index) => Image.network(
-                        (snapshot.data! as dynamic).docs[index]['postURL'],
-                        fit: BoxFit.cover,
-                      ),
-                      mainAxisSpacing: 8.0,
-                      crossAxisSpacing: 8.0,
-                    );
-                  })),
+                            );
+                          });
+                    },
+                  )
+                : FutureBuilder(
+                    future: FirebaseFirestore.instance
+                        .collection('posts')
+                        .orderBy('datePublished')
+                        .get(),
+                    builder: (context,
+                        // AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                            snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      return MasonryGridView.count(
+                        crossAxisCount: 3,
+                        itemCount: (snapshot.data! as dynamic).docs.length,
+                        itemBuilder: (context, index) => Image.network(
+                          (snapshot.data! as dynamic).docs[index]['postURL'],
+                          fit: BoxFit.cover,
+                        ),
+                        mainAxisSpacing: 3.0,
+                        crossAxisSpacing: 3.0,
+                      );
+                    }),
+          )),
     );
   }
 }

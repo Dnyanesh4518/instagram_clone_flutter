@@ -107,12 +107,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
           )
         : Scaffold(
             appBar: AppBar(
-              backgroundColor: mobileBackgroundColor,
+              elevation: 0,
+              backgroundColor:Colors.white,
               leading: IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: Icon(Icons.arrow_back,color: Colors.black,),
                 onPressed:clearImage,
               ),
-              title: Text("Post to"),
+              title: Text("Post to",style: TextStyle(color: Colors.black),),
               actions: [
                 TextButton(
                     onPressed: () =>
@@ -143,9 +144,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         controller: _descriptionController,
                         decoration: const InputDecoration(
                           hintText: "Caption..",
-                          hintStyle: TextStyle(color: Colors.grey),
                           border: InputBorder.none,
-                        ),
+                          hintStyle: TextStyle(color: Colors.grey),),
                         maxLines: 8,
                         style: TextStyle(color: Colors.black),
                       ),
