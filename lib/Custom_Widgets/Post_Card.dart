@@ -200,6 +200,7 @@ class _PostCardState extends State<PostCard> {
               ))
             ],
           ),
+          commentlength!=0?
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -232,18 +233,71 @@ class _PostCardState extends State<PostCard> {
                     ),
                   ),
                   InkWell(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CommentsScreen(snap: widget.snap))),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 4),
-                      child: Text("view all $commentlength comments",
-                        style: TextStyle(fontSize: 16, color: secondaryColor),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CommentsScreen(snap: widget.snap))),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 4),
+                          child:Text("view all $commentlength comments",
+                            style: TextStyle(fontSize: 16, color: secondaryColor),
+                          ),
+                        ),
                       ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 4),
+                    child: Text(
+                      DateFormat.yMMMEd().format(DateTime.parse(d.toString())),
+                      style: TextStyle(fontSize: 16, color: secondaryColor),
+                    ),
+                  )
+                ]),
+          ):
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DefaultTextStyle(
+                      child: Text('${widget.snap['likes'].length} likes'),
+                      style:
+                      const TextStyle(color: Colors.black, fontSize: 16)),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.only(top: 6),
+                    child: RichText(
+                      text: TextSpan(
+                          style: const TextStyle(
+                            color: Colors.black87,
+                          ),
+                          children: [
+                            TextSpan(
+                                text: widget.snap['username'],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black)),
+                            TextSpan(text: ""),
+                            TextSpan(
+                                text: '  ${widget.snap['description']}',
+                                style: const TextStyle(color: Colors.black54))
+                          ]),
                     ),
                   ),
+                  // InkWell(
+                  //   onTap: () => Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) =>
+                  //               CommentsScreen(snap: widget.snap))),
+                  //   child: Container(
+                  //     padding: EdgeInsets.symmetric(vertical: 4),
+                  //     child:Text("view all $commentlength comments",
+                  //       style: TextStyle(fontSize: 16, color: secondaryColor),
+                  //     ),
+                  //   ),
+                  // ),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 4),
                     child: Text(
